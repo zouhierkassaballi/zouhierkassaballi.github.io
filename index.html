@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zouhier Kassaballi | Behavioral Scientist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy-deep: #0a1628;
+            --navy-mid: #162544;
+            --navy-light: #1e3a5f;
+            --cream: #f5f0e8;
+            --cream-dim: #e8e3db;
+            --accent: #d4a574;
+            --accent-hover: #e8b584;
+            --text-primary: #f5f0e8;
+            --text-secondary: #a8b4c4;
+            --bg-primary: #0a1628;
+            --bg-secondary: #162544;
+        }
+
+        [data-theme="light"] {
+            --text-primary: #0a1628;
+            --text-secondary: #4a5568;
+            --bg-primary: #f5f0e8;
+            --bg-secondary: #e8e3db;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-primary);
+            border-bottom: 1px solid rgba(168, 180, 196, 0.1);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-link-icon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--text-secondary);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .nav-link-icon:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: var(--navy-deep);
+        }
+
+        .nav-link-icon svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--text-secondary);
+            transition: fill 0.3s ease;
+        }
+
+        .nav-link-icon:hover svg {
+            fill: var(--navy-deep);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--text-secondary);
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+        }
+
+        .theme-toggle svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--text-primary);
+            transition: fill 0.3s ease;
+        }
+
+        .theme-toggle:hover svg {
+            fill: var(--navy-deep);
+        }
+
+        .sun-icon { display: none; }
+        .moon-icon { display: block; }
+
+        [data-theme="light"] .sun-icon { display: block; }
+        [data-theme="light"] .moon-icon { display: none; }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 8rem 4rem 8rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(212, 165, 116, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .hero-content {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-image {
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 300px;
+            height: 360px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid var(--accent);
+            z-index: -1;
+        }
+
+        .hero-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title span {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .hero-cta:hover {
+            background: var(--accent);
+            color: var(--navy-deep);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 8rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .section-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            color: var(--accent);
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--text-secondary);
+            opacity: 0.2;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--bg-secondary);
+        }
+
+        .about-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+            max-width: 800px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .skill-category h4 {
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding: 0.3rem 0;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .skill-category li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            opacity: 0.5;
+        }
+
+        /* Experience Section */
+        .experience-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .experience-item {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 3rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid rgba(168, 180, 196, 0.1);
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .experience-date {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+
+        .experience-role {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+        }
+
+        .experience-company {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .experience-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Projects Section */
+        .projects {
+            background: var(--bg-secondary);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-primary);
+            padding: 1.75rem;
+            border-left: 3px solid var(--accent);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateX(5px);
+            box-shadow: -5px 0 20px rgba(212, 165, 116, 0.1);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--accent);
+            opacity: 0.6;
+        }
+
+        .project-year {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            background: rgba(212, 165, 116, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 2px;
+        }
+
+        .project-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.25rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .project-link:hover {
+            gap: 0.75rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            padding: 5rem 8rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            max-width: 350px;
+            font-size: 0.95rem;
+        }
+
+        .footer-section h4 {
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-links a,
+        .footer-links span {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .social-link {
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--text-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+        }
+
+        .social-link svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--text-primary);
+        }
+
+        .social-link:hover svg {
+            fill: var(--navy-deep);
+        }
+
+        .footer-bottom {
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(168, 180, 196, 0.1);
+        }
+
+        .footer-bottom p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            nav {
+                padding: 1rem 2rem;
+            }
+
+            .hero {
+                padding: 120px 4rem 4rem 4rem;
+            }
+
+            .hero-container {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+
+            .hero-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-subtitle {
+                max-width: 100%;
+            }
+
+            .hero-image img {
+                width: 250px;
+                height: 300px;
+            }
+
+            section {
+                padding: 4rem;
+            }
+
+            footer {
+                padding: 4rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+            }
+
+            .hero {
+                padding: 100px 1.5rem 3rem 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-image img {
+                width: 200px;
+                height: 240px;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            footer {
+                padding: 3rem 1.5rem;
+            }
+
+            .experience-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        
+        <ul class="nav-links">
+            <li>
+                <a href="#about" class="nav-link-icon" aria-label="About">
+                    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    About
+                </a>
+            </li>
+            <li>
+                <a href="#experience" class="nav-link-icon" aria-label="Experience">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    Experience
+                </a>
+            </li>
+            <li>
+                <a href="#projects" class="nav-link-icon" aria-label="Research">
+                    <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    Research
+                </a>
+            </li>
+            <li>
+                <a href="#contact" class="nav-link-icon" aria-label="Contact">
+                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    Contact
+                </a>
+            </li>
+            <li>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/></svg>
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <p class="hero-label">Behavioral Scientist • PhD Candidate</p>
+                <h1 class="hero-title">Decoding <span>decisions</span>,<br>designing better outcomes.</h1>
+                <p class="hero-subtitle">I research cognitive biases and choice architecture to create interventions that help people make decisions aligned with their goals.</p>
+                <a href="#contact" class="hero-cta">
+                    Let's Connect
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            </div>
+            <div class="hero-image">
+                <img src="PHOTO-me.jpg" alt="Zouhier Kassaballi">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="section-header">
+            <span class="section-number">01</span>
+            <h2 class="section-title">About Me</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="about-content">
+            <h3>Behavioral Economist bridging research and real-world impact</h3>
+            <p>I'm a PhD Candidate at the University of Erfurt with 6+ years of experience researching cognitive biases and decision-making architecture. My work focuses on designing large-scale behavioral experiments and translating complex economic theory into actionable digital interventions.</p>
+            <p>Currently, I'm leading research on how soft commitments, reminders, and loss aversion framing can close the intention-action gap—helping people follow through on their goals in educational and digital contexts.</p>
+            <p>Based in Göttingen, Germany, I'm passionate about leveraging incentive design and choice architecture to enhance user experience and drive meaningful behavioral change.</p>
+            
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>Behavioral Concepts</h4>
+                    <ul>
+                        <li>Nudging & Choice Architecture</li>
+                        <li>Loss Aversion & Present Bias</li>
+                        <li>Social Norms & Reference Points</li>
+                        <li>Commitment Devices</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h4>Research Methods</h4>
+                    <ul>
+                        <li>Randomized Experiments</li>
+                        <li>A/B Testing</li>
+                        <li>Causal Inference</li>
+                        <li>Survey Design</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h4>Data Analysis & Management</h4>
+                    <ul>
+                        <li>Stata, R & SPSS</li>
+                        <li>Power BI</li>
+                        <li>Microsoft Office</li>
+                        <li>Qualtrics & LimeSurvey</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h4>Languages</h4>
+                    <ul>
+                        <li>English</li>
+                        <li>German</li>
+                        <li>Arabic</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="section-header">
+            <span class="section-number">02</span>
+            <h2 class="section-title">Experience</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="experience-list">
+            <div class="experience-item">
+                <span class="experience-date">2021 — Present</span>
+                <div>
+                    <h3 class="experience-role">Doctoral Researcher in Behavioral Economics</h3>
+                    <p class="experience-company">University of Erfurt • BMBF-Funded Initiative</p>
+                    <p class="experience-desc">Designed scalable behavioral interventions improving user engagement for 5,000+ participants across multiple RCTs. Developed digital tools leveraging soft commitments, reminders, and loss aversion framing. Managed full RCT lifecycle from hypothesis through A/B testing and causal inference.</p>
+                </div>
+            </div>
+            <div class="experience-item">
+                <span class="experience-date">2023</span>
+                <div>
+                    <h3 class="experience-role">Lecturer in Experimental & Behavioral Economics</h3>
+                    <p class="experience-company">University of Erfurt, Faculty of Economics, Law and Social Sciences</p>
+                    <p class="experience-desc">Delivered university seminars on Behavioral Economics and Experimental Methods. Supervised bachelor's theses on decision-making biases, nudging interventions, and experimental design.</p>
+                </div>
+            </div>
+            <div class="experience-item">
+                <span class="experience-date">2020 — 2021</span>
+                <div>
+                    <h3 class="experience-role">Evaluation Intern</h3>
+                    <p class="experience-company">GIZ (Deutsche Gesellschaft für Internationale Zusammenarbeit) • Bonn</p>
+                    <p class="experience-desc">Contributed to "Harvesting Digital Service Results" initiative, evaluating German-funded international development projects and co-developing a scalable measurement index for digital project impact.</p>
+                </div>
+            </div>
+            <div class="experience-item">
+                <span class="experience-date">2019 — 2020</span>
+                <div>
+                    <h3 class="experience-role">Research Associate</h3>
+                    <p class="experience-company">Center for Modern Indian Studies, University of Göttingen</p>
+                    <p class="experience-desc">Led an RCT testing role model exposure and future self-image priming on migrant decision-making. Managed full research lifecycle and built partnerships with BAMF and research institutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="section-header">
+            <span class="section-number">03</span>
+            <h2 class="section-title">Research Projects</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-number">01</span>
+                    <span class="project-year">2025</span>
+                </div>
+                <h3 class="project-title">The Effects of Deadlines on Student Productivity</h3>
+                <p class="project-desc">Quasi-experimental analysis of time pressure and task completion. Findings applicable to user activation and conversion optimization strategies.</p>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-number">02</span>
+                    <span class="project-year">2024</span>
+                </div>
+                <h3 class="project-title">Digital Interventions & Soft Commitments</h3>
+                <p class="project-desc">Designed digital tools using soft commitments and loss aversion to combat procrastination. Directly transferable to responsible engagement tools.</p>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-number">03</span>
+                    <span class="project-year">2023</span>
+                </div>
+                <h3 class="project-title">Bunching in Higher Education</h3>
+                <p class="project-desc">Studied how users cluster effort around reference points. Key insights for designing loyalty tiers, gamification mechanics, and reward systems.</p>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-number">04</span>
+                    <span class="project-year">2019 — Present</span>
+                </div>
+                <h3 class="project-title">Mobile Learning & Role Models RCT</h3>
+                <p class="project-desc">Large-scale randomized experiment quantifying how perceived future identity influences short-run effort and digital engagement among migrants in Germany.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact -->
+    <footer id="contact">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h2>Let's work together</h2>
+                <p>Interested in behavioral research, consulting, or collaboration? I'd love to hear from you.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li><a href="/cdn-cgi/l/email-protection#dba1b4aeb3b2bea9f5b0baa8a8bab9bab7b7b29baeb5b2f6bea9bdaea9aff5bfbe"><span class="__cf_email__" data-cfemail="f08a9f8598999582de9b9183839192919c9c99b0859e99dd958296858284de9495">[email&#160;protected]</span></a></li>
+                    <li><a href="tel:+491775903184">+49 177 590 3184</a></li>
+                    <li><span>Göttingen, Germany</span></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="https://linkedin.com" class="social-link" aria-label="LinkedIn" target="_blank">
+                        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    </a>
+                    <a href="https://github.com" class="social-link" aria-label="GitHub" target="_blank">
+                        <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                    </a>
+                    <a href="/cdn-cgi/l/email-protection#d6acb9a3bebfb3a4f8bdb7a5a5b7b4b7bababf96a3b8bffbb3a4b0a3a4a2f8b2b3" class="social-link" aria-label="Email">
+                        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Zouhier Kassaballi. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentEle
